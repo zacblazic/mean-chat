@@ -1,0 +1,31 @@
+{
+  "name": "mean-chat",
+  "description": "Web-base chat application using the mean stack.",
+  "main": "index.js",
+  "authors": [
+    "Zac Blazic (zacblazic@gmail.com)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "mean",
+    "chat",
+    "web"
+  ],
+  "homepage": "https://github.com/zacblazic/mean-chat",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.3",
+    "angular-resource": "^1.5.3",
+    "angular-route": "^1.5.3",
+    "bootstrap": "^3.3.6"
+  }
+}
