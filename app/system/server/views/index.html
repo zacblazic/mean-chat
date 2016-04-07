@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <title>Index</title>
+
+  <!-- Styles -->
+  <link rel='stylesheet' href='public/vendor/bootstrap/dist/css/bootstrap.css' />
+  <link rel='stylesheet' href='public/vendor/bootstrap/dist/css/bootstrap-theme.css' />
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Project name</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
+          <li><a href="../navbar-static-top/">Static top</a></li>
+          <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div ui-view></div>
+
+  <!-- Vendor scripts -->
+  <script src="public/vendor/socket.io-client/socket.io.js"></script>
+  <script src="public/vendor/angular/angular.js"></script>
+  <script src="public/vendor/angular-route/angular-route.js"></script>
+  <script src="public/vendor/angular-resource/angular-resource.js"></script>
+  <script src="public/vendor/angular-ui-router/release/angular-ui-router.js"></script>
+
+  <script src="app/system/client/routes/system.js"></script>
+  <script src="app/system/client/app.js"></script>
+
+</body>
+</html>
