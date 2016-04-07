@@ -1,2 +1,2 @@
 # mean-chat
-Web-base chat application using the mean stack.
+Web-based chat application using the mean stack.
