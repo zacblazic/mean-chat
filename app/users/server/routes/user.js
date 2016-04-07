@@ -37,4 +37,34 @@ module.exports = function(app) {
       }
     })(req, res, next);
   });
+
+  app.get('/users', function(req, res, next) {
+    User.find({}, '-salt -password', function(err, users) {
+      if (err) { next(err); }
+      res.json(users);
+    });
+  });
+
+  app.param('user', function(req, res, next, id) {
+    var query = User.findById(id, '-salt -password');
+
+    query.exec(function(err, user) {
+      if (err) { next(err); }
+      if (!user) { next(new Error('user not found')); }
+      req.user = user;
+      return next();
+    })
+  });
+
+  app.get('/users/:user', function(req, res) {
+    res.json(req.user);
+  });
+
+  app.post('/users/:user', function(req, res, next) {
+    req.user.displayName = req.body.displayName;
+    req.user.save(function(err) {
+      if (err) { return next(err); }
+      res.json(req.user);
+    });
+  });
 };

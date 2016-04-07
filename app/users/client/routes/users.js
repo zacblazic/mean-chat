@@ -12,7 +12,7 @@ angular.module('app.users')
           resolve: {
             requireNoAuth: function($state, auth) {
               if(auth.authenticated()) {
-                $state.go('channels');
+                $state.go('home');
               }
             }
           }
@@ -24,9 +24,20 @@ angular.module('app.users')
           resolve: {
             requireNoAuth: function($state, auth) {
               if(auth.authenticated()) {
-                $state.go('channels');
+                console.log('test');
+                $state.go('home');
               }
             }
+          }
+        })
+        .state('profile', {
+          url: '/profile',
+          templateUrl: 'app/users/client/views/profile.html',
+          controller: 'ProfileCtrl as profileCtrl',
+          resolve: {
+            user: ['auth', 'User', function(auth, User) {
+              return User.get({ id: auth.currentUser().id });
+            }]
           }
         });
 

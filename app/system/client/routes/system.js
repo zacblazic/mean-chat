@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.system', ['ui.router'])
+angular.module('app.system')
   .config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
 

@@ -27,7 +27,8 @@ angular.module('app.users')
     '$scope',
     'auth',
     function($scope, auth){
+
       $scope.isLoggedIn = auth.authenticated;
-      $scope.currentUser = auth.currentUser;
+      $scope.currentUser = auth.currentUser();
       $scope.logOut = auth.logout;
-    }]);;
+    }]);
