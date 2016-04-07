@@ -22,5 +22,23 @@ angular.module('app.channels')
           url: '/create',
           templateUrl: 'app/channels/client/views/create.html',
           controller: 'ChannelsCtrl as channelsCtrl'
+        })
+        .state('channels.messages', {
+          url: '/{channelId}/messages',
+          templateUrl: 'app/channels/client/views/messages.html',
+          controller: 'MessagesCtrl as messagesCtrl',
+          resolve: {
+            messages: ['$stateParams', 'ChannelMessages',
+              function($stateParams, ChannelMessages) {
+                return ChannelMessages.query({ channelId: $stateParams.channelId });
+            }],
+            channel: ['$stateParams', 'Channels',
+              function($stateParams, Channels) {
+                return Channels.get({ channelId: $stateParams.channelId });
+            }],
+            user: ['auth', 'Users', function(auth, Users) {
+              return Users.get({ userId: auth.currentUser().id });
+            }]
+          }
         });
   }]);

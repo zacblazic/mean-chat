@@ -11,10 +11,6 @@ angular.module('app.users')
         }
       });
 
-    Users.getGravatar = function(user) {
-      return '//www.gravatar.com/avatar/' + user.emailHash;
-    };
-
     return Users;
 
   }]);

@@ -33,6 +33,8 @@ module.exports.initRoutes = function(app) {
   require('../app/system/server/routes/index')(app);
   require('../app/users/server/routes/user')(app);
   require('../app/channels/server/routes/channel')(app);
+  require('../app/channels/server/routes/channelMessage')(app);
+
 };
 
 module.exports.initModels = function() {

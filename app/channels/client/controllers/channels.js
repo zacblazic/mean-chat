@@ -7,7 +7,9 @@ angular.module('app.channels')
 
       self.channels = channels;
       self.user = user;
-      self.getGravatar = Users.getGravatar;
+      self.getGravatar = function(user) {
+        return '//www.gravatar.com/avatar/' + user.emailHash;
+      };
 
       self.newChannel = {
         name: ''
@@ -22,7 +24,6 @@ angular.module('app.channels')
         Channels.save({
           name: self.newChannel.name
         }, function(data) {
-          console.log(data);
           self.newChannel.name = '';
         });
       };

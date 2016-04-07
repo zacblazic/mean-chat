@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
 var ChannelMessageSchema = new Schema({
   user: {
+    required: true,
     type: Schema.Types.ObjectId,
     ref: 'User'
   },

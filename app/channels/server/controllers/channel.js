@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
   Channel = mongoose.model('Channel');
 
-// Get article by id
+// Get channel by id
 module.exports.channel = function(req, res, next, id) {
   Channel.findById(id, function(err, channel) {
     if (err) { next(err); }
@@ -19,7 +19,7 @@ module.exports.get = function(req, res) {
 };
 
 // Get all channels
-module.exports.all = function(req, res, next) {
+module.exports.all = function(req, res) {
   Channel.find(function(err, channels) {
     if (err) { return res.status(500).json({ error: 'Cannot list channels' }); }
     res.json(channels);
