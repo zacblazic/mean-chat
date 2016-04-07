@@ -16,16 +16,16 @@ var express = require('express'),
   var mongoose = require('mongoose');
   mongoose.connect('mongodb://localhost/mean-chat');
 
-// module.exports.initSockets = function(app) {
-//   var server = http.createServer(app);
-//   var io = socketio(server);
-//
-//   io.on('connection', function(socket) {
-//     require('../server/sockets/chat')(io, socket);
-//   });
-//
-//   return server;
-// };
+module.exports.initSockets = function(app) {
+  var server = http.createServer(app);
+  var io = socketio(server);
+
+  io.on('connection', function(socket) {
+    require('../app/channels/server/sockets/channels.js')(io, socket);
+  });
+
+  return server;
+};
 
 var auth = jwt({ secret: 'secret', userProperty: 'payload' })
 
@@ -81,7 +81,7 @@ module.exports.init = function() {
   this.initRoutes(app);
 
   // Bootstrap our sockets
-  // app = this.initSockets(app);
+  app = this.initSockets(app);
 
   app.listen(port, function() {
     console.log(chalk.green('Listening on port: ' + port));
