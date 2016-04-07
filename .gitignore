@@ -34,3 +34,6 @@ node_modules
 
 # Bower packages
 vendor
+
+# Transpiled css
+public/css

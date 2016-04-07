@@ -6,9 +6,15 @@ var express = require('express'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
+  jwt = require('express-jwt'),
   path = require('path'),
   socketio = require('socket.io'),
-  chalk = require('chalk');
+  chalk = require('chalk'),
+  passport = require('passport');
+
+
+  var mongoose = require('mongoose');
+  mongoose.connect('mongodb://localhost/mean-chat');
 
 // module.exports.initSockets = function(app) {
 //   var server = http.createServer(app);
@@ -21,8 +27,20 @@ var express = require('express'),
 //   return server;
 // };
 
+var auth = jwt({ secret: 'secret', userProperty: 'payload' })
+
 module.exports.initRoutes = function(app) {
   require('../app/system/server/routes/index')(app);
+  require('../app/users/server/routes/user')(app);
+
+};
+
+module.exports.initModels = function() {
+  require('../app/users/server/models/user');
+};
+
+module.exports.initAuth = function() {
+  require('./passport');
 };
 
 module.exports.init = function() {
@@ -42,6 +60,13 @@ module.exports.init = function() {
 
   // Serve static resources
   app.use(express.static('./'));
+
+  // Setup mongoose models
+  this.initModels();
+
+  // Add passport
+  this.initAuth();
+  app.use(passport.initialize());
 
   // Choose view engine
   app.engine('html', cons.swig);

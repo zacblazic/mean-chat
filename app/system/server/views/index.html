@@ -9,45 +9,38 @@
   <!-- Styles -->
   <link rel='stylesheet' href='public/vendor/bootstrap/dist/css/bootstrap.css' />
   <link rel='stylesheet' href='public/vendor/bootstrap/dist/css/bootstrap-theme.css' />
+  <link rel='stylesheet' href='public/css/main.css' />
 </head>
 <body>
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Project name</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-          <li><a href="../navbar-static-top/">Static top</a></li>
-          <li><a href="../navbar-fixed-top/">Fixed top</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
-  <div ui-view></div>
+  <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
+   <ul class="nav navbar-nav">
+     <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+     <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+     <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+     <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+   </ul>
+ </nav>
+
+
+
+  <div ui-view class="body-content"></div>
 
   <!-- Vendor scripts -->
+  <script src="public/vendor/jquery/dist/jquery.js"></script>
+
   <script src="public/vendor/socket.io-client/socket.io.js"></script>
   <script src="public/vendor/angular/angular.js"></script>
   <script src="public/vendor/angular-route/angular-route.js"></script>
   <script src="public/vendor/angular-resource/angular-resource.js"></script>
   <script src="public/vendor/angular-ui-router/release/angular-ui-router.js"></script>
 
-  <script src="app/system/client/routes/system.js"></script>
   <script src="app/system/client/app.js"></script>
+  <script src="app/system/client/routes/system.js"></script>
+
+  <script src="app/users/client/services/auth.js"></script>
+  <script src="app/users/client/controllers/auth.js"></script>
+  <script src="app/users/client/routes/users.js"></script>
 
 </body>
 </html>
