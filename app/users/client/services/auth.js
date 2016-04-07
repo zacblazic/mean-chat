@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app.users')
-  .factory('auth', ['$http', '$window', function($http, $window) {
+  .factory('auth', ['$q', '$http', '$window', function($q, $http, $window) {
       var auth = {};
 
       auth.saveToken = function(token) {
@@ -13,13 +13,17 @@ angular.module('app.users')
       };
 
       auth.authenticated = function() {
+        var deferred = $q.defer();
+
         var token = auth.getToken();
         if (token) {
           var payload = JSON.parse($window.atob(token.split('.')[1]));
-          return payload.expiration > Date.now() / 1000;
+          deferred.resolve(payload.expiration > Date.now() / 1000);
         } else {
-          return false;
+          deferred.reject(false);
         }
+
+        return deferred.promise;
       };
 
       auth.currentUser = function() {

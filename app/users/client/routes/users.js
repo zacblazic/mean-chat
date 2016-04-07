@@ -10,11 +10,13 @@ angular.module('app.users')
           templateUrl: 'app/users/client/views/login.html',
           controller: 'AuthCtrl as authCtrl',
           resolve: {
-            requireNoAuth: function($state, auth) {
-              if(auth.authenticated()) {
+            requireNoAuth: ['$state', 'auth', function($state, auth) {
+              return auth.authenticated().then(function() {
                 $state.go('home');
+              }, function(err) {
+                return err;
               }
-            }
+            )}]
           }
         })
         .state('register', {
@@ -22,12 +24,13 @@ angular.module('app.users')
           templateUrl: 'app/users/client/views/register.html',
           controller: 'AuthCtrl as authCtrl',
           resolve: {
-            requireNoAuth: function($state, auth) {
-              if(auth.authenticated()) {
-                console.log('test');
+            requireNoAuth: ['$state', 'auth', function($state, auth) {
+              return auth.authenticated().then(function() {
                 $state.go('home');
+              }, function(err) {
+                return err;
               }
-            }
+            )}]
           }
         })
         .state('profile', {
@@ -35,8 +38,8 @@ angular.module('app.users')
           templateUrl: 'app/users/client/views/profile.html',
           controller: 'ProfileCtrl as profileCtrl',
           resolve: {
-            user: ['auth', 'User', function(auth, User) {
-              return User.get({ id: auth.currentUser().id });
+            user: ['auth', 'Users', function(auth, Users) {
+              return Users.get({ userId: auth.currentUser().id });
             }]
           }
         });

@@ -1,20 +1,35 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+  Schema = mongoose.Schema,
+  md5 = require('md5'),
   crypto = require('crypto'),
   jwt = require('jsonwebtoken');
 
-var UserSchema = new mongoose.Schema({
+var UserSchema = new Schema({
   username: { type: String, lowercase: true, unique: true },
+  emailHash: String,
   displayName: String,
   password: String,
-  salt: String
+  salt: String,
+  created: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-UserSchema.methods.setPassword = function(password) {
-  this.salt = crypto.randomBytes(16).toString('base64');
-  this.password = this.hashPassword(password);
-};
+UserSchema.pre('save', function (next) {
+  if (this.username && this.isModified('username')) {
+    this.emailHash = md5(this.username);
+  }
+
+  if (this.password && this.isModified('password')) {
+    this.salt = crypto.randomBytes(16).toString('base64');
+    this.password = this.hashPassword(this.password);
+  }
+
+  next();
+});
 
 UserSchema.methods.authenticate = function(password) {
   return this.password == this.hashPassword(password);

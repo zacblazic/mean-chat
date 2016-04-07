@@ -32,11 +32,13 @@ var auth = jwt({ secret: 'secret', userProperty: 'payload' })
 module.exports.initRoutes = function(app) {
   require('../app/system/server/routes/index')(app);
   require('../app/users/server/routes/user')(app);
-
+  require('../app/channels/server/routes/channel')(app);
 };
 
 module.exports.initModels = function() {
   require('../app/users/server/models/user');
+  require('../app/channels/server/models/channel');
+  require('../app/channels/server/models/channelMessage');
 };
 
 module.exports.initAuth = function() {

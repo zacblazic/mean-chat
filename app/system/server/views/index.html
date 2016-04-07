@@ -13,17 +13,6 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
-   <ul class="nav navbar-nav">
-     <li ng-show="isLoggedIn()"><a>{{ currentUser.username }}</a></li>
-     <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
-     <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
-     <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
-   </ul>
- </nav>
-
-
-
   <div ui-view class="body-content"></div>
 
   <!-- Vendor scripts -->
@@ -40,10 +29,13 @@
 
   <script src="app/users/client/services/auth.js"></script>
   <script src="app/users/client/controllers/auth.js"></script>
-  <script src="app/users/client/services/user.js"></script>
+  <script src="app/users/client/services/users.js"></script>
   <script src="app/users/client/controllers/profile.js"></script>
   <script src="app/users/client/routes/users.js"></script>
 
+  <script src="app/channels/client/services/channels.js"></script>
+  <script src="app/channels/client/controllers/channels.js"></script>
+  <script src="app/channels/client/routes/channels.js"></script>
 
 </body>
 </html>
