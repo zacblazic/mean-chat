@@ -7,7 +7,10 @@
     <div class="channel-list">
       <div class="list-head">Channels</div>
       <div class="channel" ng-repeat="channel in channelsCtrl.channels">
-        <a ui-sref="channels.messages({channelId: channel._id})" ui-sref-active="selected"># {{ channel.name }}</a>
+        <a ui-sref="channels.messages({channelId: channel._id})" ui-sref-active="selected">
+          <span class="channel-prefix"></span>
+          {{ channel.name }}
+        </a>
       </div>
       <div class="channel create">
         <a ui-sref="channels.create">+ create channel</a>
@@ -15,8 +18,8 @@
 
       <div class="list-head">Direct Messages</div>
         <div class="channel" ng-repeat="user in channelsCtrl.users">
-          <a ng-if="user.$id !== channelsCtrl.profile.$id" ui-sref="channels.direct({uid: user.$id})" ui-sref-active="selected">
-            <span class="presence" ng-class="{online: user.online}"></span>
+          <a href="#">
+            <span class="presence"></span>
             {{ user.displayName }}
           </a>
         </div>

@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('app.channels')
-  .controller('ChannelsCtrl', ['$state', 'Channels', 'Users', 'auth', 'channels', 'user',
-    function($state, Channels, Users, auth, channels, user) {
+  .controller('ChannelsCtrl', ['$state', 'Channels', 'Users', 'auth', 'users', 'channels', 'user',
+    function($state, Channels, Users, auth, users, channels, user) {
       var self = this;
 
+      self.users = users;
       self.channels = channels;
       self.user = user;
       self.getGravatar = function(user) {

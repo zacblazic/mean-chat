@@ -12,6 +12,21 @@ input,
 select,
 textarea {
     max-width: 300px;
+
+}
+
+.form-control:focus {
+  border-color: #19C670;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(112, 233, 102, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(112, 233, 102, 0.6);
+}
+
+button:focus {
+  outline: none !important;
 }
 
 h2 {
@@ -21,6 +36,11 @@ h2 {
     font-weight: 300;
     line-height: 1.1;
     color: #ffffff;
+}
+
+.slack-name h2 {
+  margin: 10px;
+  font-size: 25px;
 }
 
 label {
@@ -60,16 +80,18 @@ label {
   left: 0;
   height:100%;
   width:100%;
+  display: inline-flex;
 }
 
 .sidebar {
   display:inline-block;
-  width:19.5%;
+  min-width: 220px;
+  font-size: 12px;
   vertical-align: top;
   height:100%;
   background:#30333C;
   position:relative;
-  padding-bottom:100px;
+  padding: 0;
 }
 
 .sidebar .channel-list {
@@ -94,7 +116,7 @@ label {
 
 .sidebar .channel-list .channel a:hover{
   text-decoration: none;
-  background:#3E313C;
+  background:#252830;
 }
 
 .sidebar .channel-list .channel a.selected{
@@ -120,7 +142,7 @@ label {
   bottom:0;
   padding:15px;
   background:#171717;
-  width:19.5%;
+  min-width: 220px;
 }
 
 .sidebar .my-info .user-pic {
@@ -157,23 +179,35 @@ label {
   border-radius: 50%;
   display: inline-block;
   position: relative;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background: #ab9ba9;
-  vertical-align: middle;
+  vertical-align: baseline;
+  margin-right: 3px;
+}
+
+.sidebar .channel-prefix::before {
+  content: '# ';
+  margin-right: 3px;
+
 }
 
 .sidebar .presence.online {
   background: #99d04a;
 }
 
+.messages {
+  overflow-y: scroll;
+    position: relative;
+    height: 100%;
+}
+
 .message-pane {
   display:inline-block;
   vertical-align: top;
   height:100%;
-  width:80%;
-  overflow-y:scroll;
-  padding:55px 15px 65px 15px;
+  width: 100%;
+  padding:55px 0 65px 15px;
   position: relative;
 }
 
@@ -194,17 +228,16 @@ label {
 }
 
 .message-pane .message-form {
-  // position:fixed;
-  // bottom:0;
-  // left:0;
-  // width:79%;
-
-
   position: fixed;
-    left: 50%;
-    bottom: 0;
-    padding-bottom: 10px;
-    transform: translateX(-50%);
+  bottom: 0;
+  padding: 0 25px 10px 0;
+
+
+  // position: fixed;
+  //   left: 50%;
+  //   bottom: 0;
+  //   padding-bottom: 10px;
+  //   transform: translateX(-50%);
 }
 
 .message-pane .message-wrap {
@@ -218,6 +251,10 @@ label {
   border-radius:4px;
   display: inline-block;
   vertical-align: top;
+}
+
+.message-pane .message-wrap .message {
+  font-size: 12px;
 }
 
 .message-pane .message-wrap .message-info {
@@ -237,6 +274,15 @@ label {
   font-size:10px;
 }
 
-.message-form input {
+.message-pane .message-form .input-group input {
+  resize: none!important;
   max-width: 100%;
+  border-radius: 4px;
+
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    display: none;
+  }
 }

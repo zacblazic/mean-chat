@@ -10,11 +10,18 @@ angular.module('app.channels')
           templateUrl: 'app/channels/client/views/index.html',
           controller: 'ChannelsCtrl as channelsCtrl',
           resolve: {
-            user: ['auth', 'Users', function(auth, Users) {
-              return Users.get({ userId: auth.currentUser().id });
+            user: ['$state', 'auth', 'Users', function($state, auth, Users) {
+              return Users.get({ userId: auth.currentUser().id }, function(user) {
+                if (!user.displayName) {
+                  $state.go('profile');
+                }
+              })
             }],
             channels: ['Channels', function(Channels) {
               return Channels.query();
+            }],
+            users: ['Users', function(Users) {
+              return Users.query();
             }]
           }
         })

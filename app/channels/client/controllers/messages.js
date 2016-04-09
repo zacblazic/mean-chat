@@ -4,7 +4,7 @@ angular.module('app.channels')
   .controller('MessagesCtrl', ['ChannelMessages', 'Socket', 'Users', 'channel', 'messages', 'user', function(ChannelMessages, Socket, Users, channel, messages, user) {
       var self = this;
       self.messages = messages;
-      self.channelName = channel.name;
+      self.channelName = '# ' + channel.name;
       self.channel = channel;
 
       Socket.emit('joined channel', {
