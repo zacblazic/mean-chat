@@ -34,7 +34,7 @@ angular.module('app.channels')
             }],
             channel: ['$stateParams', 'Channels',
               function($stateParams, Channels) {
-                return Channels.get({ channelId: $stateParams.channelId });
+                return Channels.get({ channelId: $stateParams.channelId }).$promise;
             }],
             user: ['auth', 'Users', function(auth, Users) {
               return Users.get({ userId: auth.currentUser().id });

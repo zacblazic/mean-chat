@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  ChannelMessage = mongoose.model('ChannelMessage');
+  ChannelMessage = mongoose.model('ChannelMessage'),
+  User = mongoose.model('User');
 
 module.exports.all = function(req, res) {
   // Paging would be better, but not for now
@@ -15,8 +16,6 @@ module.exports.all = function(req, res) {
 
 module.exports.create = function(req, res) {
   var message = new ChannelMessage(req.body);
-
-  console.log(message);
 
   message.channel = req.params.channelId;
 

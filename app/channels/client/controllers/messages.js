@@ -1,14 +1,21 @@
 'use strict';
 
 angular.module('app.channels')
-  .controller('MessagesCtrl', ['ChannelMessages', 'Socket', 'channel', 'messages', 'user', function(ChannelMessages, Socket, channel, messages, user) {
+  .controller('MessagesCtrl', ['ChannelMessages', 'Socket', 'Users', 'channel', 'messages', 'user', function(ChannelMessages, Socket, Users, channel, messages, user) {
       var self = this;
-      this.messages = messages;
-      this.channelName = channel.name;
+      self.messages = messages;
+      self.channelName = channel.name;
+      self.channel = channel;
+
+      Socket.emit('joined channel', {
+        channelId: self.channel._id
+      });
 
       Socket.on('message', function(message) {
-        console.log(message);
-        this.messages.push(message);
+        if (message.channel == self.channel._id) {
+          self.messages.push(message);
+        }
+
       });
 
       self.message = '';
@@ -20,7 +27,6 @@ angular.module('app.channels')
           channel: channel._id
         };
 
-        Socket.emit('message', message);
 
         ChannelMessages.save({
           channelId: channel._id
@@ -28,6 +34,18 @@ angular.module('app.channels')
           user: user._id,
           body: self.message
         }, function(data) {
+
+          Users.get({ userId: message.user }, function(user) {
+
+            message.user = user;
+            message.created = Date.now();
+
+            self.messages.push(message);
+            Socket.emit('message', message);
+
+          });
+
+
           self.message = '';
         });
       };
