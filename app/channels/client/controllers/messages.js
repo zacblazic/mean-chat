@@ -1,12 +1,15 @@
 'use strict';
 
 angular.module('app.channels')
-  .controller('MessagesCtrl', ['$scope', 'ChannelMessages', 'Socket', 'Users', 'channel', 'messages', 'user', function($scope, ChannelMessages, Socket, Users, channel, messages, user) {
+  .controller('MessagesCtrl', ['$scope', 'ChannelMessages', 'Socket', 'Users', 'channel', 'messages', 'user', 'focus',
+    function($scope, ChannelMessages, Socket, Users, channel, messages, user, focus) {
       var self = this;
       self.messages = messages;
       self.channelName = '# ' + channel.name;
       self.channel = channel;
       self.channels = $scope.channelsCtrl.channels;
+
+      focus('message-box');
 
       // Remove listenters that we may be subscribed to previously
       Socket.removeListener();
@@ -15,13 +18,14 @@ angular.module('app.channels')
         if (message.channel == self.channel._id) {
           self.messages.push(message);
         } else {
-          for (var i = 0; i < self.channels.length; i++) {
-            var channel = self.channels[i];
-            if (channel._id == message.channel) {
-              channel.messageCount = channel.messageCount !== undefined ? channel.messageCount + 1 : 1;
-            }
-          }
+          self.incrementMessageCount(message);
         }
+      });
+
+      // Had to put this here since removal of listeners was nuking this
+      // one from the channels controller
+      Socket.on('channel:created', function(channel) {
+        self.channels.push(channel);
       });
 
       self.getCurrentChannel = function() {
@@ -30,6 +34,16 @@ angular.module('app.channels')
 
           if (channel._id == self.channel._id) {
             return channel;
+          }
+        }
+      };
+
+      self.incrementMessageCount = function(message) {
+        for (var i = 0; i < self.channels.length; i++) {
+          var channel = self.channels[i];
+          if (channel._id == message.channel) {
+            channel.messageCount = channel.messageCount !== undefined ?
+              channel.messageCount + 1 : 1;
           }
         }
       };
@@ -56,8 +70,8 @@ angular.module('app.channels')
             message.user = user;
             message.created = Date.now();
 
-            self.messages.push(message);
             Socket.emit('message', message);
+            self.messages.push(message);
           });
 
           self.message = '';

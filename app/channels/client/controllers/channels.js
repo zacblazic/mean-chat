@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('app.channels')
-  .controller('ChannelsCtrl', ['$state', 'Channels', 'Users', 'auth', 'users', 'channels', 'user',
-    function($state, Channels, Users, auth, users, channels, user) {
+  .controller('ChannelsCtrl', ['$state', 'Socket', 'Channels', 'Users', 'auth', 'users', 'channels', 'user',
+    function($state, Socket, Channels, Users, auth, users, channels, user) {
       var self = this;
 
       self.users = users;
@@ -24,7 +24,9 @@ angular.module('app.channels')
       self.createChannel = function() {
         Channels.save({
           name: self.newChannel.name
-        }, function(data) {
+        }, function(channel) {
+          Socket.emit('channel:created', channel);
+          self.channels.push(channel);
           self.newChannel.name = '';
         });
       };

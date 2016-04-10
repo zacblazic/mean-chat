@@ -1,9 +1,14 @@
 <div class="header">
-  <h1>{{ messagesCtrl.channelName }}</h1>
+  <div class="channel-name pull-left">
+    <h1>{{ messagesCtrl.channelName }}</h1>
+  </div>
+  <div class="search-box pull-left form-group">
+    <input type="text" placeholder="Search" class="form-control" ng-model="messagesCtrl.searchText" />
+  </div>
 </div>
 
 <div class="messages" scroll-to-bottom>
-  <div class="message-wrap" ng-repeat="message in messagesCtrl.messages">
+  <div class="message-wrap" ng-repeat="message in messagesCtrl.messages | filter:messagesCtrl.searchText">
     <img class="user-pic" ng-src="{{ channelsCtrl.getGravatar(message.user) }}" />
     <div class="message-info">
       <div class="user-name">
@@ -15,16 +20,11 @@
       </div>
     </div>
   </div>
-
 </div>
 
-
-
-
 <form class="message-form" ng-submit="messagesCtrl.sendMessage()">
-
   <div class="input-group">
-    <input type="text" class="form-control" ng-model="messagesCtrl.message" placeholder="Type a message..." />
+    <input type="text" id="message-box" class="form-control" ng-model="messagesCtrl.message" placeholder="Type a message..." autofocus />
     <span class="input-group-btn">
       <button class="btn btn-default" type="submit">Send</button>
     </span>

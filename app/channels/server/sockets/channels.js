@@ -8,6 +8,10 @@ module.exports = function(io, socket) {
     socket.broadcast.emit('message', message);
   });
 
+  socket.on('channel:created', function(channel) {
+    socket.broadcast.emit('channel:created', channel);
+  });
+
   socket.on('disconnect', function() {
     console.log('user disconnected');
   });
