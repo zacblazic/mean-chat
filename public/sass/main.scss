@@ -114,6 +114,13 @@ label {
   border-bottom-right-radius: 4px;
 }
 
+.sidebar .channel .badge {
+  font-size: 10;
+  float: right;
+  vertical-align: middle;
+  background-color: #19C670;
+}
+
 .sidebar .channel-list .channel a:hover{
   text-decoration: none;
   background:#252830;

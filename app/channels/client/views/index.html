@@ -10,6 +10,7 @@
         <a ui-sref="channels.messages({channelId: channel._id})" ui-sref-active="selected">
           <span class="channel-prefix"></span>
           {{ channel.name }}
+          <span class="badge">{{ channel.messageCount }}</span>
         </a>
       </div>
       <div class="channel create">
