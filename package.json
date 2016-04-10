@@ -2,11 +2,10 @@
   "name": "mean-chat",
   "version": "0.0.1",
   "description": "Web-base chat application using the mean stack.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "postinstall": "bower install && gulp",
-    "prestart": "npm install",
-    "start": "node server.js"
+    "start": "node ."
   },
   "repository": {
     "type": "git",
